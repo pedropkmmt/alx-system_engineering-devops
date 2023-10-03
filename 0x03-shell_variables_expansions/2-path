@@ -1,0 +1,2 @@
+#!/bin/bash
+mkdir action > PATH &&  ls -1 | tail +1
