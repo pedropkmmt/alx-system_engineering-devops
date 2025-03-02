@@ -40,9 +40,13 @@ Lessons Learned
 Action Items (To-Do List)
 
  ✅ Add pre-deployment testing to stop typos before they cause chaos.
+ 
  ✅ Implement uptime monitoring alerts for instant notifications.
+ 
  ✅ Update code review checklists to include sanity checks for file paths.
+ 
  ✅ Expand the Puppet script to scan for common filename typos—because one missing letter should never ruin an entire day again.
+ 
 With these steps, we should be safe… unless, of course, the typo strikes back. But hey, we’re programmers—we never make mistakes, right? 😉
 
 
