@@ -2,7 +2,8 @@ Postmortem: Apache Web Server Outage on Ubuntu 14.04
 
 Issue Summary
 
-Duration: The outage lasted approximately 13 hours 20 minutes, from 06:00 am GMT+2 to 19:20 pm  GMT+2
+Duration: The outage lasted approximately 13 hours 20 minutes, from 06:00 am GMT+2 to 19:20 pm GMT+2
+
 Impact: Users accessing the Holberton WordPress site experienced 500 Internal Server Errors. The entire service was unavailable during this period. Estimated 100% of users were affected.
 Root Cause: A typo in wp-settings.php caused the application to reference a non-existent file (class-wp-locale.phpp instead of class-wp-locale.php), leading to a critical application failure.
 
