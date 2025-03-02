@@ -9,16 +9,16 @@ Root Cause: A typo in wp-settings.php caused the application to reference a non-
 
 Timeline
 
-06:00 am– Outage began after the release of ALX's System Engineering & DevOps project 0x19.
-19:20 pm– Issue detected by an engineer (Pedro) upon starting the project.
-19:30 pm– Checked Apache processes; confirmed Apache was running.
-19:40 pm– Verified document root settings in /etc/apache2/sites-available/.
-19:50 pm– Used strace on Apache’s root process while making requests—found no useful information.
-20:00 pm– Ran strace on www-data process and discovered a missing file error (ENOENT).
-20:10 pm– Investigated /var/www/html/wp-settings.php, located a typo (.phpp instead of .php).
-20:15 pm– Fixed the typo and restarted Apache.
-20:20 pm– Retested the server; confirmed service was restored (200 OK response).
-20:30pm – Created a Puppet script to prevent recurrence by detecting and correcting similar typos.
+* 06:00 am– Outage began after the release of ALX's System Engineering & DevOps project 0x19.
+* 19:20 pm– Issue detected by an engineer (Pedro) upon starting the project.
+* 19:30 pm– Checked Apache processes; confirmed Apache was running.
+* 19:40 pm– Verified document root settings in /etc/apache2/sites-available/.
+* 19:50 pm– Used strace on Apache’s root process while making requests—found no useful information.
+* 20:00 pm– Ran strace on www-data process and discovered a missing file error (ENOENT).
+* 20:10 pm– Investigated /var/www/html/wp-settings.php, located a typo (.phpp instead of .php).
+* 20:15 pm– Fixed the typo and restarted Apache.
+* 20:20 pm– Retested the server; confirmed service was restored (200 OK response).
+* 20:30pm – Created a Puppet script to prevent recurrence by detecting and correcting similar typos.
 
 Root Cause & Resolution
 
