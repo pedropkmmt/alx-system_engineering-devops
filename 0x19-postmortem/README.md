@@ -4,7 +4,8 @@ Issue Summary
 
 * Duration: 13 hours 20 minutes (from 06:00 am to 19:20 pm)—yes, that’s a long time for a missing letter.
 * Impact: The Holberton WordPress site was completely down, throwing 500 Internal Server Errors at anyone who dared visit. 100% of users were affected—so, basically, everyone.
-* Root Cause: A typo in wp-settings.php referenced a file that didn’t exist (class-wp-locale.phpp instead of class-wp-locale.php). * That extra "p" single-handedly broke everything. Who knew one letter could wield such power?
+* Root Cause: A typo in wp-settings.php referenced a file that didn’t exist (class-wp-locale.phpp instead of class-wp-locale.php).*
+*  That extra "p" single-handedly broke everything. Who knew one letter could wield such power?
 
 Timeline
 * 06:00 am – Outage began after the release of ALX's System Engineering & DevOps project 0x19.
