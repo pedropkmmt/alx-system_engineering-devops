@@ -2,53 +2,47 @@ Postmortem: Apache Web Server Outage on Ubuntu 14.04
 
 Issue Summary
 
-Duration: The outage lasted approximately 13 hours 20 minutes, from 06:00 am GMT+2 to 19:20 pm GMT+2
-
-Impact: Users accessing the Holberton WordPress site experienced 500 Internal Server Errors. The entire service was unavailable during this period. Estimated 100% of users were affected.
-Root Cause: A typo in wp-settings.php caused the application to reference a non-existent file (class-wp-locale.phpp instead of class-wp-locale.php), leading to a critical application failure.
+* Duration: 13 hours 20 minutes (from 06:00 am to 19:20 pm)—yes, that’s a long time for a missing letter.
+* Impact: The Holberton WordPress site was completely down, throwing 500 Internal Server Errors at anyone who dared visit. 100% of users were affected—so, basically, everyone.
+* Root Cause: A typo in wp-settings.php referenced a file that didn’t exist (class-wp-locale.phpp instead of class-wp-locale.php). * That extra "p" single-handedly broke everything. Who knew one letter could wield such power?
 
 Timeline
-
-* 06:00 am– Outage began after the release of ALX's System Engineering & DevOps project 0x19.
-* 19:20 pm– Issue detected by an engineer (Pedro) upon starting the project.
-* 19:30 pm– Checked Apache processes; confirmed Apache was running.
-* 19:40 pm– Verified document root settings in /etc/apache2/sites-available/.
-* 19:50 pm– Used strace on Apache’s root process while making requests—found no useful information.
-* 20:00 pm– Ran strace on www-data process and discovered a missing file error (ENOENT).
-* 20:10 pm– Investigated /var/www/html/wp-settings.php, located a typo (.phpp instead of .php).
-* 20:15 pm– Fixed the typo and restarted Apache.
-* 20:20 pm– Retested the server; confirmed service was restored (200 OK response).
-* 20:30pm – Created a Puppet script to prevent recurrence by detecting and correcting similar typos.
+* 06:00 am – Outage began after the release of ALX's System Engineering & DevOps project 0x19.
+* 19:20 Pm – Engineer (Pedro) detected the issue upon starting the project. "Hey, why is everything broken?" moment ensued.
+* 19:30 Pm – Checked Apache processes. They were running fine—so, no blaming the server this time.
+* 19:40 Pm – Verified document root settings in /etc/apache2/sites-available/. Everything looked okay… or so it seemed.
+* 19:50 Pm – Ran strace on Apache’s root process while making requests—expected brilliance, got nothing useful instead.
+* 20:00 Pm – Ran strace on www-data process. BOOM! Found a missing file error (ENOENT). Clue unlocked.
+* 20:10 Pm – Investigated /var/www/html/wp-settings.php and found the villain: an extra “p” (.phpp). A single-letter disaster.
+* 20:15 Pm – Deleted the extra “p” like it had personally offended me.
+* 20:20 Pm – Retested the server. Success! The 200 OK response was back, and so was my faith in life.
+* 20:30 Pm – Wrote a Puppet script to prevent future typo-related heartbreak.
 
 Root Cause & Resolution
 
 Root Cause
 
-The issue was caused by a typo in the wp-settings.php file, where a WordPress system file (class-wp-locale.php) was incorrectly referenced with an extra "p" (class-wp-locale.phpp). This led to the application failing to load, resulting in a 500 Internal Server Error for all users.
-
+The issue was caused by a typo in wp-settings.php that mistakenly referenced class-wp-locale.phpp instead of class-wp-locale.php. This tiny mistake made WordPress panic and shut everything down—overreacting much?
 Resolution
 
-1. Located the typo in wp-settings.php (line 137).
-2. Corrected the filename from class-wp-locale.phpp to class-wp-locale.php.
-3. Restarted the Apache server.
-4. Verified that the WordPress site was functioning correctly.
-5. Developed a Puppet manifest to automatically detect and fix similar typos in wp-settings.php in the future.
+1. Found and removed the extra "p" in wp-settings.php.
+2. Restarted Apache.
+3. Tested the site—200 OK, back in business.
+4. Created a Puppet script to automatically detect and fix similar typos in the future.
 
 Corrective & Preventative Measures
 
-Improvements & Fixes
+Lessons Learned
+* Test before deploying. Or risk spending hours hunting down rogue letters.
+* Use monitoring tools (e.g., UptimeRobot) to scream at us when things go wrong.
+* Improve code reviews. We must catch typos before they bring down an entire system.
 
-* Implement automated testing before deployment to catch such issues early.
-* Set up real-time monitoring (e.g., UptimeRobot) to detect outages immediately.
-* Improve code review processes to avoid typos in critical files.
-* Automate typo detection in configuration files.
-  
 Action Items (To-Do List)
+ ✅ Add pre-deployment testing to stop typos before they cause chaos.
+ ✅ Implement uptime monitoring alerts for instant notifications.
+ ✅ Update code review checklists to include sanity checks for file paths.
+ ✅ Expand the Puppet script to scan for common filename typos—because one missing letter should never ruin an entire day again.
+With these steps, we should be safe… unless, of course, the typo strikes back. But hey, we’re programmers—we never make mistakes, right? 😉
 
-Add a pre-deployment testing step for WordPress applications.
-  Implement uptime monitoring alerts for website failures.
-  Update code review checklists to include validation of file references.
-  Expand the Puppet script to scan for common filename typos in WordPress files.
-With these measures in place, we expect to prevent similar outages in the future. But of course, programmers never make mistakes.
 
 
