@@ -1,10 +1,13 @@
 Postmortem: Apache Web Server Outage on Ubuntu 14.04
+
 Issue Summary
+
 Duration: The outage lasted approximately 13 hours 20 minutes, from 06:00 am GMT+2 to 19:20 pm  GMT+2
 Impact: Users accessing the Holberton WordPress site experienced 500 Internal Server Errors. The entire service was unavailable during this period. Estimated 100% of users were affected.
 Root Cause: A typo in wp-settings.php caused the application to reference a non-existent file (class-wp-locale.phpp instead of class-wp-locale.php), leading to a critical application failure.
 
 Timeline
+
 06:00 am– Outage began after the release of ALX's System Engineering & DevOps project 0x19.
 19:20 pm– Issue detected by an engineer (Pedro) upon starting the project.
 19:30 pm– Checked Apache processes; confirmed Apache was running.
@@ -17,7 +20,9 @@ Timeline
 20:30pm – Created a Puppet script to prevent recurrence by detecting and correcting similar typos.
 
 Root Cause & Resolution
+
 Root Cause
+
 The issue was caused by a typo in the wp-settings.php file, where a WordPress system file (class-wp-locale.php) was incorrectly referenced with an extra "p" (class-wp-locale.phpp). This led to the application failing to load, resulting in a 500 Internal Server Error for all users.
 Resolution
 Located the typo in wp-settings.php (line 137).
@@ -27,6 +32,7 @@ Verified that the WordPress site was functioning correctly.
 Developed a Puppet manifest to automatically detect and fix similar typos in wp-settings.php in the future.
 
 Corrective & Preventative Measures
+
 Improvements & Fixes
 Implement automated testing before deployment to catch such issues early.
 Set up real-time monitoring (e.g., UptimeRobot) to detect outages immediately.
