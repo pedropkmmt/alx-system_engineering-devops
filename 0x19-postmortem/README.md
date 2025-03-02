@@ -38,6 +38,7 @@ Lessons Learned
 * Improve code reviews. We must catch typos before they bring down an entire system.
 
 Action Items (To-Do List)
+
  ✅ Add pre-deployment testing to stop typos before they cause chaos.
  ✅ Implement uptime monitoring alerts for instant notifications.
  ✅ Update code review checklists to include sanity checks for file paths.
