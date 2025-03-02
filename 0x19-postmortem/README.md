@@ -25,21 +25,26 @@ Root Cause & Resolution
 Root Cause
 
 The issue was caused by a typo in the wp-settings.php file, where a WordPress system file (class-wp-locale.php) was incorrectly referenced with an extra "p" (class-wp-locale.phpp). This led to the application failing to load, resulting in a 500 Internal Server Error for all users.
+
 Resolution
-Located the typo in wp-settings.php (line 137).
-Corrected the filename from class-wp-locale.phpp to class-wp-locale.php.
-Restarted the Apache server.
-Verified that the WordPress site was functioning correctly.
-Developed a Puppet manifest to automatically detect and fix similar typos in wp-settings.php in the future.
+
+1. Located the typo in wp-settings.php (line 137).
+2. Corrected the filename from class-wp-locale.phpp to class-wp-locale.php.
+3. Restarted the Apache server.
+4. Verified that the WordPress site was functioning correctly.
+5. Developed a Puppet manifest to automatically detect and fix similar typos in wp-settings.php in the future.
 
 Corrective & Preventative Measures
 
 Improvements & Fixes
-Implement automated testing before deployment to catch such issues early.
-Set up real-time monitoring (e.g., UptimeRobot) to detect outages immediately.
-Improve code review processes to avoid typos in critical files.
-Automate typo detection in configuration files.
+
+* Implement automated testing before deployment to catch such issues early.
+* Set up real-time monitoring (e.g., UptimeRobot) to detect outages immediately.
+* Improve code review processes to avoid typos in critical files.
+* Automate typo detection in configuration files.
+  
 Action Items (To-Do List)
+
 Add a pre-deployment testing step for WordPress applications.
   Implement uptime monitoring alerts for website failures.
   Update code review checklists to include validation of file references.
